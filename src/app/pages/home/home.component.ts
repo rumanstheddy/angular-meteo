@@ -11,6 +11,7 @@ export class HomeComponent {
   title = 'Meteoscope';
   searchResults: LocationData | null = null;
   search = 'London';
+  userInput = '';
 
   constructor(private openMeteoService: OpenMeteoService) {}
 
