@@ -10,8 +10,11 @@ import { OpenMeteoService } from '../../services/open-meteo.service';
 export class HomeComponent {
   title = 'Meteoscope';
   searchResults: LocationData | null = null;
-  search = 'London';
-  userInput = '';
+  search = '';
+
+  handleChange(text: string) {
+    this.search = text;
+  }
 
   constructor(private openMeteoService: OpenMeteoService) {}
 
@@ -23,9 +26,6 @@ export class HomeComponent {
       },
       error: (error) => {
         console.log(error);
-      },
-      complete: () => {
-        console.log('complete');
       },
     });
   }
