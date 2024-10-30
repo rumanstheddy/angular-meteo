@@ -11,6 +11,7 @@ export class HomeComponent {
   title = 'Meteoscope';
   searchResults: LocationData | null = null;
   search = '';
+  data = 'Sample data';
 
   handleChange(text: string) {
     this.search = text;
