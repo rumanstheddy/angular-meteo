@@ -1,33 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { LocationData } from '../../interfaces/location-data';
 import { OpenMeteoService } from '../../services/open-meteo.service';
+import {
+  Subject,
+  Subscription,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+} from 'rxjs';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnDestroy {
   title = 'Meteoscope';
   searchResults: LocationData | null = null;
   search = '';
   data = 'Sample data';
 
+  private searchSubject = new Subject<string>();
+  private searchSubscription: Subscription | null = null;
+
   handleChange(text: string) {
-    this.search = text;
+    text.length > 0 && this.searchSubject.next(text);
   }
 
   constructor(private openMeteoService: OpenMeteoService) {}
 
   ngOnInit() {
-    this.openMeteoService.getLocationsFromSearch(this.search).subscribe({
-      next: (data) => {
-        this.searchResults = data;
-        console.log(this.searchResults);
-      },
-      error: (error) => {
-        console.log(error);
-      },
-    });
+    this.searchSubscription = this.searchSubject
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap((searchQuery) =>
+          this.openMeteoService.getLocationsFromSearch(searchQuery)
+        )
+      )
+      .subscribe({
+        next: (data) => {
+          this.searchResults = data;
+          console.log(this.searchResults);
+        },
+        error: (err) => console.log(err),
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription?.unsubscribe();
   }
 }

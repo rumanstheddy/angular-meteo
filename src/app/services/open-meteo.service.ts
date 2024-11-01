@@ -9,7 +9,7 @@ import { LocationData } from '../interfaces/location-data';
 export class OpenMeteoService {
   constructor(private http: HttpClient) {}
 
-  baseUrl = 'https://geocoding-api.open-meteo.com/v1/';
+  private baseUrl = 'https://geocoding-api.open-meteo.com/v1/';
 
   getLocationsFromSearch(
     searchQuery: string,

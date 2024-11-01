@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LocationData } from '../../interfaces/location-data';
 
 @Component({
   selector: 'results-box',
@@ -6,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './results-box.component.scss',
 })
 export class ResultsBoxComponent {
-  @Input() resultsData: string = '';
+  @Input() searchResults: LocationData | null = null;
 }
