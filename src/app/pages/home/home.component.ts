@@ -16,7 +16,7 @@ import {
 })
 export class HomeComponent implements OnDestroy {
   title = 'Meteoscope';
-  searchResults: LocationData | null = null;
+  searchResults: LocationData[] = [];
   search = '';
   data = 'Sample data';
 
@@ -39,8 +39,8 @@ export class HomeComponent implements OnDestroy {
         )
       )
       .subscribe({
-        next: (data) => {
-          this.searchResults = data;
+        next: ({ results }) => {
+          this.searchResults = results;
           console.log(this.searchResults);
         },
         error: (err) => console.log(err),

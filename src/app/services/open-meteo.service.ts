@@ -14,8 +14,11 @@ export class OpenMeteoService {
   getLocationsFromSearch(
     searchQuery: string,
     resultCount: number = 5
-  ): Observable<LocationData> {
+  ): Observable<{ generationtime_ms: number; results: LocationData[] }> {
     const apiUrl = `${this.baseUrl}/search?name=${searchQuery}&count=${resultCount}&language=en&format=json`;
-    return this.http.get<LocationData>(apiUrl);
+    return this.http.get<{
+      generationtime_ms: number;
+      results: LocationData[];
+    }>(apiUrl);
   }
 }

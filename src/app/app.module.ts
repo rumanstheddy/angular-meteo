@@ -10,11 +10,12 @@ import { HomeComponent } from './pages/home/home.component';
 import { OpenMeteoService } from './services/open-meteo.service';
 import { provideHttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ResultsBoxComponent } from './components/results-box/results-box.component';
+import { LocationResultsComponent } from './components/location-results/location-results.component';
+import { NgFor } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, ResultsBoxComponent],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
+  declarations: [AppComponent, HomeComponent, LocationResultsComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, NgFor],
   providers: [provideClientHydration(), provideHttpClient(), OpenMeteoService],
   bootstrap: [AppComponent],
 })
