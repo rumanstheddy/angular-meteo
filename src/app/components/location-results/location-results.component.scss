@@ -1,0 +1,14 @@
+.searchresults-list {
+  // width: 100%;
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 8px;
+  margin: 0;
+  width: 100%;
+
+  background-color: #eee;
+}

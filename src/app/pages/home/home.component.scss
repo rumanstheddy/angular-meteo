@@ -1,0 +1,21 @@
+.search-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  // justify-content: center;
+}
+
+.main-title {
+  text-align: center;
+}
+
+.search-input {
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  border-radius: 8px;
+  border: 1px solid #000;
+
+  font-family: "Inter";
+}

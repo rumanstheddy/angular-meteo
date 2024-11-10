@@ -1,4 +1,6 @@
-<h1>{{title}}</h1>
-<input type="text" placeholder="Search for a location 📍" name="search" [(ngModel)]="search"
-    (ngModelChange)="handleChange($event)" />
-<results-box [searchResults]="searchResults" />
+<div class="search-container">
+    <h1 class="main-title">{{title}}</h1>
+    <input class="search-input" type="text" placeholder="Search for a location 📍" name="search" [(ngModel)]="search"
+        (ngModelChange)="handleChange($event)" />
+    <results-box [searchResults]="searchResults" />
+</div>
