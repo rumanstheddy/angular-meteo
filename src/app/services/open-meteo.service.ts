@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LocationData } from '../interfaces/location-data';
+import { ForecastData } from '../interfaces/forecast-data';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +21,20 @@ export class OpenMeteoService {
       generationtime_ms: number;
       results: LocationData[];
     }>(apiUrl);
+  }
+
+  getForecastFromLocation(
+    latitude: number,
+    longitude: number,
+    temp_unit: string
+  ): Observable<ForecastData> {
+    const apiUrl = [
+      `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,showers,snowfall,cloud_cover,wind_speed_10m`,
+      temp_unit === 'F' && `&temperature_unit=fahrenheit`,
+    ]
+      .filter(Boolean)
+      .join('');
+    console.log(apiUrl);
+    return this.http.get<ForecastData>(apiUrl);
   }
 }

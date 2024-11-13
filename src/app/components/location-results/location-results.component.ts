@@ -11,7 +11,7 @@ export class LocationResultsComponent {
   @Input() searchResults: LocationData[] = [];
 
   handleClick(latitude: number, longitude: number) {
-    this.router.navigateByUrl('/forecast');
+    this.router.navigateByUrl(`/forecast/${latitude}/${longitude}`);
   }
 
   ngOnInit() {}
