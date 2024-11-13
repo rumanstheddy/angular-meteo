@@ -17,7 +17,7 @@ export class ForecastComponent {
 
   constructor(
     private openMeteoService: OpenMeteoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {}
 
   ngOnInit() {
