@@ -1,27 +1,6 @@
 <div class="forecast-container">
-  <!-- TODO: Make this render from a list in the component-->
-  <div>
-    Temperature: {{ forecastResults?.current?.temperature_2m }}
-    {{ forecastResults?.current_units?.temperature_2m }}
-  </div>
-  <div>
-    Apparent Temperature:
-    {{ forecastResults?.current?.apparent_temperature }}
-    {{ forecastResults?.current_units?.apparent_temperature }}
-  </div>
-  <div>
-    Relative Humidity:
-    {{ forecastResults?.current?.relative_humidity_2m }}
-    {{ forecastResults?.current_units?.relative_humidity_2m }}
-  </div>
-  <div>
-    Precipitation:
-    {{ forecastResults?.current?.precipitation }}
-    {{ forecastResults?.current_units?.precipitation }}
-  </div>
-  <div>
-    Wind Speed:
-    {{ forecastResults?.current?.wind_speed_10m }}
-    {{ forecastResults?.current_units?.wind_speed_10m }}
+  <div *ngFor="let item of forecastDisplayList">
+    {{ item.label }} : {{ forecastResults?.current?.[item.key] }}
+    {{ getUnits(item.key) }}
   </div>
 </div>

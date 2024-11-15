@@ -2,7 +2,7 @@
   <li *ngFor="let result of searchResults" class="searchresuts-list__item">
     <span
       (click)="handleClick(result.latitude, result.longitude)"
-      class="searchresuts-list__item__content"
+      class="searchresuts-list__item-content"
       >{{ result.name }}, {{ result.admin1 }}, {{ result.country }}</span
     >
   </li>
