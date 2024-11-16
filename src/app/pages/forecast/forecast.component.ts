@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OpenMeteoService } from '../../services/open-meteo.service';
 import { ForecastData, WeatherUnits } from '../../interfaces/forecast-data';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-forecast',
@@ -14,13 +14,16 @@ export class ForecastComponent {
   forecastResults: ForecastData | null = null;
   // private forecastSubject = new Subject<string>();
   // private forecastSubscription: Subscription | null = null;
+  locationName: string = '';
+  locationState: string = '';
+  locationCountry: string = '';
 
   forecastDisplayList = [
     { label: 'Temperature', key: 'temperature_2m' as const },
-    { label: 'Apparent Temperature', key: 'apparent_temperature'  as const },
-    { label: 'Relative Humidity', key: 'relative_humidity_2m'  as const },
-    { label: 'Precipitation', key: 'precipitation'  as const },
-    { label: 'Wind Speed', key: 'wind_speed_10m'  as const },
+    { label: 'Apparent Temperature', key: 'apparent_temperature' as const },
+    { label: 'Relative Humidity', key: 'relative_humidity_2m' as const },
+    { label: 'Precipitation', key: 'precipitation' as const },
+    { label: 'Wind Speed', key: 'wind_speed_10m' as const },
   ];
 
   getUnits(key: keyof WeatherUnits): string | undefined {
@@ -29,14 +32,24 @@ export class ForecastComponent {
 
   constructor(
     private openMeteoService: OpenMeteoService,
-    private route: ActivatedRoute,
-  ) {}
+    private router: Router,
+  ) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+
+    this.locationName = state?.['name'];
+    this.locationState = state?.['admin1'];
+    this.locationCountry = state?.['country'];
+  }
 
   ngOnInit() {
-    this.route.paramMap.subscribe((param) => {
-      this.latitude = Number(param.get('lat'));
-      this.longitude = Number(param.get('long'));
-    });
+    const currentRoute = this.router.routerState.root;
+    const params = currentRoute.snapshot.paramMap;
+
+    this.latitude = Number(params.get('lat'));
+    this.longitude = Number(params.get('long'));
+
+    console.log(this.router.getCurrentNavigation());
 
     this.openMeteoService
       .getForecastFromLocation(this.latitude, this.longitude, 'C')

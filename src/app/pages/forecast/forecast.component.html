@@ -1,4 +1,5 @@
 <div class="forecast-container">
+  {{ locationName }}, {{ locationState }}, {{ locationCountry }}
   <div *ngFor="let item of forecastDisplayList">
     {{ item.label }} : {{ forecastResults?.current?.[item.key] }}
     {{ getUnits(item.key) }}

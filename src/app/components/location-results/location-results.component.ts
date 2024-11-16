@@ -10,8 +10,16 @@ import { Router } from '@angular/router';
 export class LocationResultsComponent {
   @Input() searchResults: LocationData[] = [];
 
-  handleClick(latitude: number, longitude: number) {
-    this.router.navigateByUrl(`/forecast/${latitude}/${longitude}`);
+  handleClick(
+    latitude: number,
+    longitude: number,
+    name: string,
+    admin1: string,
+    country: string,
+  ) {
+    this.router.navigate([`/forecast/${latitude}/${longitude}`], {
+      state: { name: name, admin1: admin1, country: country },
+    });
   }
 
   ngOnInit() {}

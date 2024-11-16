@@ -1,7 +1,15 @@
 <ul *ngIf="searchResults.length > 0" class="searchresults-list">
   <li *ngFor="let result of searchResults" class="searchresuts-list__item">
     <span
-      (click)="handleClick(result.latitude, result.longitude)"
+      (click)="
+        handleClick(
+          result.latitude,
+          result.longitude,
+          result.name,
+          result.admin1,
+          result.country
+        )
+      "
       class="searchresuts-list__item-content"
       >{{ result.name }}, {{ result.admin1 }}, {{ result.country }}</span
     >
